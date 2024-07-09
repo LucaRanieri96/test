@@ -37,10 +37,10 @@ function App() {
 
         {/* Lista di elementi */}
         {items.map((item, index) => (
-          <div key={index} className="pb-1 bg-white flex gap-5 relative">
+          <div key={item.substring(0, 10)} className="pb-1 bg-white flex gap-5 relative">
             {/* Badge associato all'elemento */}
-            <div style={{ width: "10%", whiteSpace: "nowrap" }} key={badges[index % badges.length].id} className="bg-red-300 text-white truncate rounded-md justify-center p-1 min-w-10"
-              onMouseEnter={() => showTooltip(index, badges[index % badges.length].label)}
+            <div key={`badge-${badges[index % badges.length].id}`} style={{ width: "10%", whiteSpace: "nowrap" }} className="bg-red-300 text-white truncate rounded-md justify-center p-1 min-w-10 cursor-pointer"
+              onMouseEnter={() => showTooltip(index, badges[index % badges.length].tooltip)}
               onMouseLeave={() => hideTooltip(index)}
             >
               {badges[index % badges.length].label}
