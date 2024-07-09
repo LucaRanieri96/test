@@ -33,11 +33,11 @@ function App() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-blue-500 mb-5">Testing React Middle Ellipsis</h1>
+        <h1 style={{ width: "90%", whiteSpace: "nowrap" }} className="text-4xl font-bold text-blue-500 mb-5 text-center"> <MiddleEllipsis><span>Testing React Middle Ellipsis </span></MiddleEllipsis></h1>
 
         {/* Lista di elementi */}
         {items.map((item, index) => (
-          <div key={item.substring(0, 10)} className="pb-1 bg-white flex gap-5 relative">
+          <div  key={item.substring(0, 10)} className="pb-1 bg-white flex gap-5 relative">
             {/* Badge associato all'elemento */}
             <div key={`badge-${badges[index % badges.length].id}`} style={{ width: "10%", whiteSpace: "nowrap" }} className="bg-red-300 text-white truncate rounded-md justify-center p-1 min-w-10 cursor-pointer"
               onMouseEnter={() => showTooltip(index, badges[index % badges.length].tooltip)}
