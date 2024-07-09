@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <div className="w-1/3 p-8 bg-white"><MiddleTruncate></MiddleTruncate></div>
+      <div className="w-[320px] min-w-[400px] p-2 bg-white"><MiddleTruncate></MiddleTruncate></div>
       <div className="w-2/3 p-8 bg-white rounded-lg shadow-lg">
         <h1 style={{ width: "100%", whiteSpace: "nowrap" }} className="text-4xl font-bold text-blue-500 mb-5 text-center"> <MiddleEllipsis><span>Testing React Middle Ellipsis </span></MiddleEllipsis></h1>
 

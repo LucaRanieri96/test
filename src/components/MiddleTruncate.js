@@ -9,8 +9,8 @@ function MiddleEllipsis({ text }) {
       if (containerRef.current) {
         const parentWidth = containerRef.current.parentElement.offsetWidth;
         const parentHeight = containerRef.current.parentElement.offsetHeight;
-        const charWidth = 8;
-        const lineHeight = 26;
+        const charWidth = 10;
+        const lineHeight = 21;
 
         const maxCharsPerLine = Math.floor(parentWidth / charWidth);
         const maxLines = Math.floor(parentHeight / lineHeight);
@@ -52,23 +52,25 @@ function MiddleEllipsis({ text }) {
 
 function MiddleTruncate() {
   const items = [
-    "Eiusmod elit laborum commodo aute nisi velit sunt enim occaecat ad eiusmod qui. Id sint est aute eiusmod commodo fugiat laborum. Exercitation consequat minim est amet occaecat eu ad aute magna cupidatat duis qui labore non.",
+    "Eiusmod elit laborum commodo aute nisi velit sunt enim occaecat ad sunt enim occaecat ad sunt enim occaecat ad ah ah ah ah id te eiusmod commodo fugiat laborum. Exercitation consequat minim est amet occaecat eu ad aute magna cupidatat duis qui labore noa a a a a an a A A A A A.",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   ];
 
   return (
-    <div className='flex flex-col gap-2'>
-      {items.map((item) => (
-        <div key={item.substring(0, 10)} className="bg-slate-200 rounded p-2 h-[150px]">
-          {/* Testo con ellissi */}
-          <div className="flex justify-start h-full">
-            <MiddleEllipsis text={item} />
+    <>
+      <div className='flex flex-col gap-2'>
+        {items.map((item) => (
+          <div key={item.substring(0, 10)} className="bg-slate-200 rounded h-[165px]">
+            {/* Testo con ellissi */}
+            <div className="flex justify-start h-full p-2">
+              <MiddleEllipsis text={item} />
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
 
