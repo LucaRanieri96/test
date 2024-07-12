@@ -2,27 +2,47 @@ import React, { useRef, useState, useEffect } from 'react';
 
 function MiddleEllipsis({ text }) {
   const containerRef = useRef(null);
-  const [maxLength, setMaxLength] = useState(text.length);
+  const [maxLength, setMaxLength] = useState(0);
+  const [charWidth, setCharWidth] = useState(0);
+  const [lineHeight, setLineHeight] = useState(0);
 
   useEffect(() => {
-    // funzione che aggiorna il maxLenght per il testo
-    const updateMaxLength = () => {
+    if (!text) return; // Evita di calcolare se il testo è vuoto
+
+    const calculateTextMetrics = () => {
       if (containerRef.current) {
-        const parentWidth = containerRef.current.parentElement.offsetWidth;
-        const parentHeight = containerRef.current.parentElement.offsetHeight;
-        const charWidth = 10;
-        const lineHeight = 21;
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        if (context) {
+          // Ottieni lo stile del font dal contenitore
+          const computedStyle = getComputedStyle(containerRef.current);
+          const font = computedStyle.font || computedStyle.fontSize + ' ' + computedStyle.fontFamily;
+          context.font = font;
 
-        const maxCharsPerLine = Math.floor(parentWidth / charWidth);
-        const maxLines = Math.floor(parentHeight / lineHeight);
-        const newMaxLength = maxCharsPerLine * maxLines;
+          // Calcola larghezza media dei caratteri
+          const averageCharWidth = context.measureText('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ').width / 52;
+          setCharWidth(averageCharWidth);
 
-        setMaxLength(newMaxLength);
+          // Calcola altezza della riga
+          const lineHeights = parseFloat(computedStyle.lineHeight || computedStyle.fontSize);
+          setLineHeight(lineHeights);
+
+          // Calcola lunghezza massima iniziale
+          const parentWidth = containerRef.current.parentElement.offsetWidth;
+          const parentHeight = containerRef.current.parentElement.offsetHeight;
+          const maxCharsPerLine = Math.floor(parentWidth / charWidth);
+          const maxLines = Math.floor(parentHeight / lineHeight);
+          const newMaxLength = maxCharsPerLine * maxLines;
+          setMaxLength(newMaxLength);
+        }
       }
     };
-    // richiamo la funzione
-    updateMaxLength();
-    const resizeObserver = new ResizeObserver(updateMaxLength);
+
+    calculateTextMetrics();
+
+    const resizeObserver = new ResizeObserver(() => {
+      calculateTextMetrics();
+    });
 
     if (containerRef.current && containerRef.current.parentElement) {
       resizeObserver.observe(containerRef.current.parentElement);
@@ -33,9 +53,9 @@ function MiddleEllipsis({ text }) {
         resizeObserver.unobserve(containerRef.current.parentElement);
       }
     };
-  }, []);
+  }, [text]);
 
-  if (text.length <= maxLength) {
+  if (!text || text.length <= maxLength) {
     return <div ref={containerRef}>{text}</div>;
   }
 
@@ -53,24 +73,24 @@ function MiddleEllipsis({ text }) {
 
 function MiddleTruncate() {
   const items = [
-    "Eiusmod elit laborum commodo aute nisi velit sunt enim occaecat ad sunt enim occaecat ad sunt enim occaecat ad ah ah ah ah id te eiusmod commodo fugiat laborum. Exercitation consequat minim est amet occaecat eu ad aute magna cupidatat duis qui labore noa a a a a an a A A A A A. a a a a a a a a a a a a a a a a a a a a a a a a a a a a",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
+    "Fusce mattis, justo nec mollis ultricies, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Integer ultrices lobortis eros ut convallis.",
+    "Donec ullamcorper nulla non metus auctor fringilla. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.",
+    "Maecenas sed diam eget risus varius blandit sit amet non magna. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo.",
   ];
 
   return (
-    <>
-      <div className='flex flex-col gap-2'>
-        {items.map((item) => (
-          <div key={item.substring(0, 10)} className="bg-slate-200 rounded h-[165px]">
-            <div className="flex justify-start h-full p-2">
+    <div className='flex flex-col gap-2'>
+      {items.map((item, index) => (
+        <div key={index} className="bg-slate-200 rounded h-[168px]">
+          <div className='p-2 h-full w-full'>
+            <div className="flex justify-start h-full w-full">
               <MiddleEllipsis text={item} />
             </div>
           </div>
-        ))}
-      </div>
-    </>
+        </div>
+      ))}
+    </div>
   );
 }
 
