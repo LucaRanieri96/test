@@ -58,7 +58,7 @@ function MiddleEllipsis2D({ text }) {
 
   if (!text || text.length <= maxLength) {
     return (
-      <div ref={containerRef} style={{ overflow: 'hidden' }}>
+      <div ref={containerRef}>
         {text}
       </div>
     );
@@ -70,9 +70,13 @@ function MiddleEllipsis2D({ text }) {
   const end = text.substring(text.length - endLength);
 
   return (
-    <div ref={containerRef} style={{ overflow: 'hidden' }}>
-      {start}...{end}
-    </div>
+    <>
+      <div style={{width:"100%", height:"100%"}}>
+        <div ref={containerRef}>
+          {start}...{end}
+        </div>
+      </div>
+    </>
   );
 }
 

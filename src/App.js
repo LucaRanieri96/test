@@ -14,11 +14,9 @@ function App() {
     <div className="flex min-h-screen bg-gray-100">
       <div className="p-2 bg-white"> <div className='flex flex-col gap-2'>
         {items.map((item, index) => (
-          <div key={index} className="bg-slate-200 rounded h-[170px]">
-            <div className='p-2 h-full w-full'>
-              <div className="h-full w-full">
+          <div key={index} className="bg-slate-200 rounded h-[170px] flex justify-center items-center">
+            <div className='h-[90%] w-[90%] flex justify-center items-center'>
                 <MiddleEllipsis2D text={item} />
-              </div>
             </div>
           </div>
         ))}
