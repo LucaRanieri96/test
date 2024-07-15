@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './style.css';
 
 const AnotherMiddleEllipsis = ({ text }) => {
   const containerRef = useRef(null);
-  const [displayText, setDisplayText] = React.useState(text);
+  const [displayText, setDisplayText] = useState(text);
 
   useEffect(() => {
     function cropMiddle(target, text) {
@@ -84,9 +84,20 @@ const AnotherMiddleEllipsis = ({ text }) => {
       sliceIfNotFitting();
     }
 
-    if (containerRef.current) {
+    function handleResize() {
       cropMiddle(containerRef.current, text);
     }
+
+    // Initial crop
+    cropMiddle(containerRef.current, text);
+
+    // Add resize event listener
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      // Clean up resize event listener
+      window.removeEventListener('resize', handleResize);
+    };
   }, [text]);
 
   return <div ref={containerRef} className="ellipsis-container">{displayText}</div>;

@@ -28,7 +28,8 @@ function App() {
             </div>
           ))}
         </div>
-        <div className='w-[100%] h-36'>
+        <div className='text-red-500 text-center text-4xl font-semibold w-full my-5'>AnotherMiddleEllipsis (disastroso)</div>
+        <div className='w-[100%] h-[170px] bg-slate-200 rounded'>
           <AnotherMiddleEllipsis text={item2}></AnotherMiddleEllipsis>
         </div>
       </div>
