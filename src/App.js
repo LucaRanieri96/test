@@ -19,6 +19,11 @@ function App() {
   return (
     <div className="bg-gray-100">
       <div className="p-2 bg-white">
+      <div className='text-center w-full my-5'>
+          <div className='text-red-500  text-4xl font-semibold '>MiddleEllipsis2D (vincente)</div>
+          <p>Non male, quando si stringe troppo pero' non riesce ad adattarsi bene, da considerare bene le varie misure del div padre, ragionare bene con gli stili css.</p>
+          <p>Per quanto riguarda tutto il resto sembra andare bene ma incerta l'implementazione dove ci sono liste molto grandi di elementi da troncare, magari considerare un lazy loading degli elementi non visibili a schermo</p>
+        </div>
         <div className='flex flex-col gap-2'>
           {items.map((item, index) => (
             <div key={index} className="bg-slate-200 rounded h-[170px] flex justify-center items-center">
@@ -28,7 +33,10 @@ function App() {
             </div>
           ))}
         </div>
-        <div className='text-red-500 text-center text-4xl font-semibold w-full my-5'>AnotherMiddleEllipsis (disastroso)</div>
+        <div className='text-center w-full my-5'>
+          <div className='text-red-500  text-4xl font-semibold '>AnotherMiddleEllipsis (disastroso)</div>
+          <p>Una sola implementazione sembra scattare molto e comunque non riesce a considerare lo spazio verticale del div</p>
+        </div>
         <div className='w-[100%] h-[170px] bg-slate-200 rounded'>
           <AnotherMiddleEllipsis text={item2}></AnotherMiddleEllipsis>
         </div>
